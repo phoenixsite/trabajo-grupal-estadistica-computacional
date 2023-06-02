@@ -36,7 +36,8 @@ se suelen agrupar para realizar un análisis extenso y exploratorio de un gran c
 de centros sanitarios, como el Sistema Andaluz de Salud.
 
 Por este motivo, es posible que en esos períodos sea necesario calcular ciertos parámetros
-en cada centro y enviarlos al nodo desde donde puedan ser accedidos por un departamento administrativo general para, posteriormente, aplicar más cálculos o agruparlos
+en cada centro y enviarlos al nodo desde donde puedan ser accedidos por un departamento
+administrativo general para, posteriormente, aplicar más cálculos o agruparlos
 de manera que puedan ser analizados más fácilmente desde diferentes vistas. Así, es un
 requerimiento que los datos
 que se obtienen de los centros sean calculados homogéneamente, evitando incoherencias o
@@ -46,6 +47,8 @@ y conectados a esta red. Es más, normalmente estos nodos no tienen por qué ten
 o ser homogéneos entre sí. Podrían tratarse de ordenadores o servidores con distintos
 sistemas operativos, características *hardware* completamente distintas o incluso ser 
 virtuales, dependiendo de cada centro sanitario.
+
+![](images/Red_calculo.drawio.pdf){width: 200px}
 
 ## Paquetes y funciones que permiten resolver el problema
 
