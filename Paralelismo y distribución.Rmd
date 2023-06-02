@@ -48,7 +48,7 @@ o ser homogéneos entre sí. Podrían tratarse de ordenadores o servidores con d
 sistemas operativos, características *hardware* completamente distintas o incluso ser 
 virtuales, dependiendo de cada centro sanitario.
 
-![](images/Red_calculo.drawio.pdf){width: 200px}
+![Red de distribución del Sistema Andaluz de Salud](images/Red_calculo.drawio.png){width=50%}
 
 ## Paquetes y funciones que permiten resolver el problema
 
