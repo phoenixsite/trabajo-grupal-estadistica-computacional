@@ -1,10 +1,10 @@
 ---
-title: "Vignette Title"
-author: "Vignette Author"
-date: "`r Sys.Date()`"
+title: "Trabajo grupal de Estadística Computacional"
+author: "Grupo 3: Gerardo Tirado García, Carlos Romero Cruz e Irene Trigueros Lorca"
+date: "`r format(Sys.Date(), format='%d de %B del %Y')`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Trabajo grupal de Estadística Computacional}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,50 +16,42 @@ knitr::opts_chunk$set(
 )
 ```
 
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+## Introducción
 
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+## Problema específico
+A continuación se va a presentar un problema de uso de los paquetes *snow* y *Rmpi*.
 
-## Vignette Info
+Supongamos que nos encontramos a finales de año, donde la mayoría de empresas y
+administraciones analizan su actividad realizada durante el año. En estos análisis se
+calculan indicadores estadísticos que permitan representar resúmenes y cualidades de los
+resultados obtenidos. Estos procesos cobran significada importancia en el ámbito
+hospitalario. 
 
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
+Los indicadores estadísticos no solo miden el rendimiento de los trabajadores en una 
+organización, sino que en ámbitos como el sanitario permiten monitorizar las actividades,
+resultados y listas de espera de un hospital o todo un sistema sanitario. Cabe destacar
+que, aunque estos datos estadísticos se calculan continuamente, incluso en tiempo real o
+en un período de pocos días, sí es cierto que a final del período de curso de actividad
+se suelen agrupar para realizar un análisis extenso y exploratorio de un gran conjunto
+de centros sanitarios, como el Sistema Andaluz de Salud.
 
-## Styles
+Por este motivo, es posible que en esos períodos sea necesario calcular ciertos parámetros
+en cada centro y enviarlos al nodo desde donde puedan ser accedidos por un departamento administrativo general para, posteriormente, aplicar más cálculos o agruparlos
+de manera que puedan ser analizados más fácilmente desde diferentes vistas. Así, es un
+requerimiento que los datos
+que se obtienen de los centros sean calculados homogéneamente, evitando incoherencias o
+faltas de integridad. Esta homogeneidad en los cálculos se puede obtener mediante una 
+red de computación, donde se puede distribuir el trabajo entre diferentes nodos configurados
+y conectados a esta red. Es más, normalmente estos nodos no tienen por qué tener capacidades
+o ser homogéneos entre sí. Podrían tratarse de ordenadores o servidores con distintos
+sistemas operativos, características *hardware* completamente distintas o incluso ser 
+virtuales, dependiendo de cada centro sanitario.
 
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
+## Paquetes y funciones que permiten resolver el problema
 
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
 
-## Figures
+## Ejemplo 1:
 
-The figure sizes have been customised so that you can easily put two images side-by-side. 
+## Ejemplo 2:
 
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
-```
-
-You can enable figure captions by `fig_caption: yes` in YAML:
-
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
-
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
-
-## More Examples
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
-```
-
-Also a quote using `>`:
-
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
+## Ejemplo 3:
