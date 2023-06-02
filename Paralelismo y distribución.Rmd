@@ -17,6 +17,20 @@ knitr::opts_chunk$set(
 ```
 
 ## Introducción
+En este vignette, hablaremos sobre problemas que se resuelven a través de técnicas de computación paralela y de computación distribuida. 
+
+El paralelismo es la simple aplicación de múltiples CPU a un único problema. Más formalmente, podemos definir el paralelismo como la forma de computación en la cual varios cálculos pueden realizarse simultáneamente, basado en el principio de dividir los problemas grandes para obtener varios problemas pequeños (que se presuponen más fáciles de resolver), que serán solucionados en paralelo. 
+
+Las ventajas del paralelismo las podemos resumir en: la capacidad de resolver los problemas que no pueden ser manejados con una única CPU, permitir la ejecución de problemas con un alto nivel de complejidad, la velocidad en la ejecución al usar varias CPU y su capacidad para ofrecer un balance entre coste y rendimiento.
+
+Sin embargo, también, tiene inconvenientes entre las que destaca: la gran cantidad de ciclos de procesamiento y de datos que son necesarios para poder aprovechar esta técnica, los problemas de seguridad que se puedan generar ya que se necesita un software y hardware específico para la computación paralela y debido a las múltiples CPU, puede ser difícil conseguir una buena sincronización y comunicación entre los procesos.
+
+
+La computación distribuida es un modelo para resolver problemas de computación masiva utilizando un gran número de ordenadores organizados en clústeres incrustados en una infraestructura de telecomunicaciones distribuida. Podemos definir la computación distribuida como el modelo informático que permite hacer grandes cálculos utilizando miles de ordenadores. Este sistema se basa en repartir la información a través de Internet mediante un software a diferentes ordenadores, que van resolviendo los cálculos y, una vez tienen el resultado, lo envían al servidor. 
+
+Las ventajas de la computación distribuida son: la distribución geográfica de los ordenadores, la alta velocidad de cómputo, la compartición de los recursos, la tolerancia a fallos y la modularidad para que el sistema sea independiente.
+
+Los inconvenientes de la computación distribuida son: la escalabilidad cuando aumenta la demanda del sistema, la heterogeneidad, la gestión de los recursos, la dificultad de conseguir la transparencia total del sistema distribuido, las altas medidas de seguridad y privacidad que se deben tomar y los problemas de sincronización e interbloqueo. 
 
 ## Problema específico
 A continuación se va a presentar un problema de uso de los paquetes *snow* y *Rmpi*.
