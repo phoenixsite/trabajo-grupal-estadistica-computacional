@@ -67,8 +67,9 @@ virtuales, dependiendo de cada centro sanitario.
 ## Paquetes y funciones que permiten resolver el problema
 
 
-## Ejemplo 1:
+## Ejemplo 1
 
-## Ejemplo 2:
+## Ejemplo 2
 
-## Ejemplo 3:
+
+## Ejemplo 3
