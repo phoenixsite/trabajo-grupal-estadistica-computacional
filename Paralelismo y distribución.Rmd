@@ -38,12 +38,12 @@ A continuación se va a presentar un problema de uso de los paquetes *snow* y *R
 Supongamos que nos encontramos a finales de año, donde la mayoría de empresas y
 administraciones analizan su actividad realizada durante el año. En estos análisis se
 calculan indicadores estadísticos que permitan representar resúmenes y cualidades de los
-resultados obtenidos. Estos procesos cobran significada importancia en el ámbito
+resultados obtenidos. Estos procesos cobran un significado muy importante en el ámbito
 hospitalario. 
 
 Los indicadores estadísticos no solo miden el rendimiento de los trabajadores en una 
 organización, sino que en ámbitos como el sanitario permiten monitorizar las actividades,
-resultados y listas de espera de un hospital o todo un sistema sanitario. Cabe destacar
+resultados y listas de espera de un hospital o de todo un sistema sanitario. Cabe destacar
 que, aunque estos datos estadísticos se calculan continuamente, incluso en tiempo real o
 en un período de pocos días, sí es cierto que a final del período de curso de actividad
 se suelen agrupar para realizar un análisis extenso y exploratorio de un gran conjunto
@@ -71,12 +71,8 @@ library(snow)
 ## Ejemplo 1
 
 ## Ejemplo 2
-
-
-## Ejemplo 3
-En este siguiente ejemplo se va a mostrar la manera en la que *snow* permite facilitar la extracción homogénea de los 
-datos desde diferentes nodos y su transmisión al nodo maestro, que se correspondería, por ejemplo, con el de un
-departamente administrativo.
+Para resolver el problema específico que hemos propuesto, vamos a hacer uso del paquete *snow*. Se va a mostrar la manera en la que *snow* permite facilitar la extracción homogénea de los 
+datos desde diferentes nodos y su transmisión al nodo maestro, que se correspondería, por ejemplo, con el de un departamente administrativo.
 
 Sea la siguiente sentencia la definición de las direcciones IP de las nodos sobre los que se va a realizar la operación
 de distribución:
@@ -114,3 +110,9 @@ cl<-makeSOCKcluster(nodes_addr)
 results<-clusterApply(cl, db_names, fecthData)
 ```
 Y en la variable *results* se obtendría los datos en forma de *dataframe* para cada nodo.
+
+Tras obtener los datos de cada nodo y tenerlos ya en el nodo central, solo quedaría parar el clúster.
+```{r eval=FALSE}
+stopCluster(cl)
+```
+
