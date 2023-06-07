@@ -66,8 +66,34 @@ o ser homogéneos entre sí.
 
 ```{r eval = FALSE}
 library(Rmpi)
+```
+
+**RMPI** es un paquete que proporciona enlaces a MPI para el lenguaje de programación R. 
+De la misma forma que se puede escribir código paralelo en otros lenguajes como C o Fortran, los códigos de R también pueden ejecutarse en paralelo a través de múltiples procesadores o nodos. 
+La interfaz de paso de mensajes o **PMI** (*Message Passing Interface*) es un estándar que define la sintaxis y la semántica de las funcioines contenidas en una biblioteca de paso de mensajes diseñada para ser usada en programas que exploten la existencia de múltiples procesadores. 
+Siendo más específicos, en realidad MPI se trata de un ''estándar por consenso'', el cual fue diseñado originalmente en un foro abierto. 
+Con esto dicho, cabe aclarar que MPI no es un verdadeo estándar, debido a que no fue emitido por una organización de estándares como ISO o la IEEE, aunque es ampliamente usado debido a que es código libre. 
+
+La ventaja de MPI sobre otras bibliotecas de paso de mensajes, es que los programas que utilizan la biblioteca son portables (MPI ha sido implementado para casi toda arquitectura de memoria distribuida), y rápidos (cada implementación de la biblioteca ha sido optimizada para el hardware en la que se ejecuta).
+
+En resumen, podemos resumir las características de MPI en: estandarización, portabilidad, buenas prestaciones, amplia funcionalidad y existencia de implementaciones libres. 
+La especificación detalla las funciones que se pueden utilizar, lo cual puede variar de una implementación a otra. 
+El usuario escribirá su aplicación como un proceso secuencial del que selanzarán varias instancias que cooperan entre sí. 
+Es importante destacar que los procesos invocan diferentes funciones MPI que permiten:
+  * iniciar, gestionar y finalizar procesos MPI
+  * comunicar datos entre dos procesos
+  * realizar operaciones de comunicación entre grupos de procesos
+  * crear tipos arbitrarios de datos
+
+```{r eval = FALSE}
 library(snow)
 ```
+
+**SNOW** (*Simple Network Of Workstations*) es una librería que se ha construido sobre RMPI, aunque no es necesario estar familiarizado con MPI para usar esta librería. 
+Es una buena opción para paralelizar aplicaciones que pueden usar más de un núcleos (*core*). 
+Se establece un modelo de *manager*/trabajador, donde un proceso (*manager*) controla al resto de procesos, que son los que realmente realizan el trabajo. 
+Estos ''trabajadores'' comunican sus resultados de vuelta al proceso *manager*, que podrá realizar más trabajo sobre los datos que se han añadido. 
+
 ## Ejemplo 1
 
 ## Ejemplo 2
