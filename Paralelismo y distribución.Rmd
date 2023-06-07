@@ -47,7 +47,7 @@ resultados y listas de espera de un hospital o todo un sistema sanitario. Cabe d
 que, aunque estos datos estadísticos se calculan continuamente, incluso en tiempo real o
 en un período de pocos días, sí es cierto que a final del período de curso de actividad
 se suelen agrupar para realizar un análisis extenso y exploratorio de un gran conjunto
-de centros sanitarios, como el Sistema Andaluz de Salud.
+de centros sanitarios.
 
 Por este motivo, es posible que en esos períodos sea necesario calcular ciertos parámetros
 en cada centro y enviarlos al nodo desde donde puedan ser accedidos por un departamento
@@ -58,18 +58,59 @@ que se obtienen de los centros sean calculados homogéneamente, evitando incoher
 faltas de integridad. Esta homogeneidad en los cálculos se puede obtener mediante una 
 red de computación, donde se puede distribuir el trabajo entre diferentes nodos configurados
 y conectados a esta red. Es más, normalmente estos nodos no tienen por qué tener capacidades
-o ser homogéneos entre sí. Podrían tratarse de ordenadores o servidores con distintos
-sistemas operativos, características *hardware* completamente distintas o incluso ser 
-virtuales, dependiendo de cada centro sanitario.
+o ser homogéneos entre sí. 
 
 ![Red de distribución del Sistema Andaluz de Salud](images/Red_calculo.drawio.png){width=50%}
 
 ## Paquetes y funciones que permiten resolver el problema
 
-
+```{r eval = FALSE}
+library(Rmpi)
+library(snow)
+```
 ## Ejemplo 1
 
 ## Ejemplo 2
 
 
 ## Ejemplo 3
+En este siguiente ejemplo se va a mostrar la manera en la que *snow* permite facilitar la extracción homogénea de los 
+datos desde diferentes nodos y su transmisión al nodo maestro, que se correspondería, por ejemplo, con el de un
+departamente administrativo.
+
+Sea la siguiente sentencia la definición de las direcciones IP de las nodos sobre los que se va a realizar la operación
+de distribución:
+```{r}
+nodes_addr<-c('182.219.165.102', '171.71.62.247', '210.57.40.92','253.51.230.149', '203.89.85.9')
+```
+
+A continuación, se define el nombre de la base de datos desde donde se va a extraer la información para cada nodo, pues,
+como ya se ha comentado anteriormente, los sistemas de cada nodo pueden ser heterógeneos entre sí:
+```{r}
+db_names<-c('db_pacientes', 'pacnts_bd', 'pacientes', 'PacientesDB', 'pacientes_db')
+```
+De esta manera, al nodo cuya dirección IP es *182.219.165.102* la base de datos donde almacena los datos requeridos se llama
+*db_pacientes*.
+
+Una vez definido desde dónde se va a acceder los datos en cada nodo, debemos definir la
+función que nos permita acceder a los datos y devolverlos al nodo maestro, por ejemplo, 
+en forma de *dataframe*. Por cuestiones de extensibilidad, no se especifica el método de 
+acceso a la base de datos en cada nodo:
+```{r eval = FALSE}
+fetchData<-function(db_name) {
+  
+  # Conexión con la base de datos
+  # Comprobación de la existencia de los datos
+  # Acceso a los datos
+  # Transformación a dataframe
+  return df
+}
+```
+
+Ahora se define el *cluster* distribuido y se aplica la función anteriormente definida
+mediante *clusterApply*:
+```{r eval = FALSE}
+cl<-makeSOCKcluster(nodes_addr)
+results<-clusterApply(cl, db_names, fecthData)
+```
+Y en la variable *results* se obtendría los datos en forma de *dataframe* para cada nodo.
