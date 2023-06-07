@@ -1,7 +1,7 @@
 ---
 title: "Trabajo grupal de Estadística Computacional"
 author: "Grupo 3: Gerardo Tirado García, Carlos Romero Cruz e Irene Trigueros Lorca"
-date: "`r format(Sys.Date(), format='%d de %B del %Y')`"
+date: "Miércoles 7 de junio del 2023"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Trabajo grupal de Estadística Computacional}
@@ -96,8 +96,49 @@ Es una buena opción para paralelizar aplicaciones que pueden usar más de un n�
 Se establece un modelo de *manager*/trabajador, donde un proceso (*manager*) controla al resto de procesos, que son los que realmente realizan el trabajo. 
 Estos ''trabajadores'' comunican sus resultados de vuelta al proceso *manager*, que podrá realizar más trabajo sobre los datos que se han añadido. 
 
+## Ejemplo de uso de *Rmpi*
+En este ejemplo se va a mostrar la manera en la que *rmpi* permite facilitar la extracción homogénea de los datos desde diferentes nodos y su transmisión al nodo maestro, que se correspondería, por ejemplo, con el de un departamento administrativo. Aunque aquí se mostraría la ejecución de los siguientes comandos, el código que se va a mostrar
+a continuación debe ser agrupado en un script de R independiente y ser ejecutado mediante una orden del sistema:
+*mpiexec -n 4 Rscript .\rmpi_ejemplo.R*.
 
-## Ejemplo de uso
+En primer lugar establecemos los esclavos.
+
+```{r eval=FALSE}
+usize <- mpi.universe.size()
+ns <- usize - 1
+mpi.spawn.Rslaves(nslaves=ns)
+```
+
+Establecemos un array de la variable, cuyo tamaño debe coincidir con el número de núcleos que se emplean en la ejecución,
+```{r}
+var <- c('182.219.165.102', '171.71.62.247', '210.57.40.92','253.51.230.149', '203.89.85.9')
+db_names<-c('db_pacientes', 'pacnts_bd', 'pacientes', 'PacientesDB', 'pacientes_db')
+```
+
+Se envía el estado de las variables y ciertos parámetros a los esclavos, como el identificador del procesador que 
+está ejecutando el correspondiente proceso:
+```{r eval=FALSE}
+mpi.bcast.data2slave(var, comm = 1, buffunit = 100)
+mpi.bcast.cmd(id <- mpi.comm.rank())
+mpi.remote.exec(paste("La variable en el identificador ",id," es ", var[id]))
+```
+
+Ahora, el maestro ordena a los trabajadores que ejecuten un cierto código y se obtenga el resultado:
+```{r eval=FALSE}
+mpi.bcast.cmd(output <- db_names[id])
+mpi.bcast.cmd(mpi.gather(output, 2, double(1)))
+
+mpi.gather(double(1), 2, double(usize))
+```
+
+Finalmente, se deben terminar todos los procesos involucrados y liberar los recursos.
+```{r eval=FALSE}
+# Close down and quit
+mpi.close.Rslaves(dellog = FALSE)
+mpi.quit()
+```
+
+## Ejemplo de uso de *snow*
 Para resolver el problema específico que hemos propuesto, hemos optado por usar el paquete *snow*. Se va a mostrar la manera en la que *snow* permite facilitar la extracción homogénea de los 
 datos desde diferentes nodos y su transmisión al nodo maestro, que se correspondería, por ejemplo, con el de un departamente administrativo.
 
@@ -142,4 +183,3 @@ Tras obtener los datos de cada nodo y tenerlos ya en el nodo central, solo queda
 ```{r eval=FALSE}
 stopCluster(cl)
 ```
-
