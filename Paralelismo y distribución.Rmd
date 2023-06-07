@@ -78,9 +78,13 @@ Podemos resumir las características de MPI en: estandarización, portabilidad, 
 
 El usuario escribirá su aplicación como un proceso secuencial del que se lanzarán varias instancias que cooperan entre sí. 
 Es importante destacar que los procesos invocan diferentes funciones MPI que permiten:
+
   * iniciar, gestionar y finalizar procesos MPI
+  
   * comunicar datos entre dos procesos
+  
   * realizar operaciones de comunicación entre grupos de procesos
+  
   * crear tipos arbitrarios de datos
 
 ```{r eval = FALSE}
